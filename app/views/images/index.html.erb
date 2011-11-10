@@ -1,0 +1,12 @@
+<h1>Images list</h2>
+
+<div id="images">
+	
+	<% @images.each do |image| %>
+		<%= image_tag(image.name) %>
+		<%= image.name %>
+	<% end %>
+
+</div>
+
+
