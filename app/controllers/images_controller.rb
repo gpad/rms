@@ -1,33 +1,83 @@
 class ImagesController < ApplicationController
+  # GET /images
+  # GET /images.xml
   def index
-    img_root = File.join(Rails.root, 'public/images')
-      @images = Dir.entries(img_root).select{|img| !File.directory?(img)}.collect do |img| 
-        ImageInfo.new(img_root, img)
-      end
+    @images = Image.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @images }
+    end
   end
-  
-  def upload
-    uploaded_io = params[:picture]
-    if uploaded_io
-      File.open(Rails.root.join('public', 'images', uploaded_io.original_filename), 'wb') do |file|
-        file.write(uploaded_io.read)
+
+  # GET /images/1
+  # GET /images/1.xml
+  def show
+    @image = Image.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @image }
+    end
+  end
+
+  # GET /images/new
+  # GET /images/new.xml
+  def new
+    @image = Image.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @image }
+    end
+  end
+
+  # GET /images/1/edit
+  def edit
+    @image = Image.find(params[:id])
+  end
+
+  # POST /images
+  # POST /images.xml
+  def create
+    @image = Image.new(params[:image])
+
+    respond_to do |format|
+      if @image.save
+        format.html { redirect_to(@image, :notice => 'Image was successfully created.') }
+        format.xml  { render :xml => @image, :status => :created, :location => @image }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @image.errors, :status => :unprocessable_entity }
       end
     end
-    redirect_to '/'
   end
 
+  # PUT /images/1
+  # PUT /images/1.xml
+  def update
+    @image = Image.find(params[:id])
 
-  def show
+    respond_to do |format|
+      if @image.update_attributes(params[:image])
+        format.html { redirect_to(@image, :notice => 'Image was successfully updated.') }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @image.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /images/1
+  # DELETE /images/1.xml
+  def destroy
+    @image = Image.find(params[:id])
+    @image.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(images_url) }
+      format.xml  { head :ok }
+    end
   end
 end
-
-class ImageInfo
-  attr_reader :src
-  attr_reader :name
-  def initialize(path, name)
-    @src = File.join(path, name)
-    @name = name
-  end
-end
-
-

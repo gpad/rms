@@ -1,17 +1,23 @@
-<h1>Images list</h2>
+<h1>Listing images</h1>
 
-<div id="images">
-	
-  <% @images.each do |image| %>
-    <%= image_tag(image.name) %>
-    <%= image.name %>
-  <% end %>
-</div>
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
 
-<div>
-	<%= form_tag({:action => :upload}, :multipart => true) do %>
-	  <%= file_field_tag 'picture' %>
-          <%= submit_tag 'Butta su!!!' %>
-	<% end %>
-	 
-</div>
+<% @images.each do |image| %>
+  <tr>
+    <td><%= image.name %></td>
+    <td><%= link_to 'Show', image %></td>
+    <td><%= link_to 'Edit', edit_image_path(image) %></td>
+    <td><%= link_to 'Destroy', image, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Image', new_image_path %>
