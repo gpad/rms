@@ -16,8 +16,8 @@ Rmms::Application.routes.draw do
   #   resources :products
   resources :images do
     put 'upload', :on => :collection
-    get 'upload', :on => :collection
   end
+  resources :playlists
 
   # Sample resource route with options:
   #   resources :products do
