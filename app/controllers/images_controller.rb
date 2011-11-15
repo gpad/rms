@@ -44,6 +44,15 @@ class ImagesController < ApplicationController
 
     respond_to do |format|
       if @image.save
+        uploaded_io = params[:picture]
+        if uploaded_io
+          File.open(Rails.root.join('public', 'images', uploaded_io.original_filename), 'wb') do |file|
+            file.write(uploaded_io.read)
+          end
+        end
+     
+
+
         format.html { redirect_to(@image, :notice => 'Image was successfully created.') }
         format.xml  { render :xml => @image, :status => :created, :location => @image }
       else
