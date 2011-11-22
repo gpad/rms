@@ -9,11 +9,6 @@ class ImagesController < ApplicationController
   # GET /images/1.xml
   def show
     @image = Image.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @image }
-    end
   end
 
   # GET /images/new
