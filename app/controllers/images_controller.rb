@@ -44,9 +44,7 @@ class ImagesController < ApplicationController
 
     respond_to do |format|
       if @image.save
-
-        save_picture @image.picture
-
+        save_picture @image.name, @image.picture
         format.html { redirect_to(@image, :notice => 'Image was successfully created.') }
         format.xml  { render :xml => @image, :status => :created, :location => @image }
       else
@@ -63,7 +61,7 @@ class ImagesController < ApplicationController
 
     respond_to do |format|
       if @image.update_attributes(params[:image])
-        save_picture @image.picture
+        save_picture @image.name, @image.picture
         format.html { redirect_to(@image, :notice => 'Image was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -77,6 +75,7 @@ class ImagesController < ApplicationController
   # DELETE /images/1.xml
   def destroy
     @image = Image.find(params[:id])
+    File.delete(Rails.root.join('public', 'images', @image.name))
     @image.destroy
 
     respond_to do |format|
@@ -86,9 +85,9 @@ class ImagesController < ApplicationController
   end
 
   private
-  def save_picture uploaded_io
+  def save_picture filename, uploaded_io
     if uploaded_io
-      File.open(Rails.root.join('public', 'images', uploaded_io.original_filename), 'wb') do |file|
+      File.open(Rails.root.join('public', 'images', filename), 'wb') do |file|
         file.write(uploaded_io.read)
       end
     end
