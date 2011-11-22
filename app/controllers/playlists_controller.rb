@@ -1,10 +1,10 @@
 class PlaylistsController < ApplicationController
   def index
     @playlists = Playlist.all
-    respond_to do |format|
-      format.html
-      format.xml { render :xml => @playlists }
-    end
+    #respond_to do |format|
+    #  format.html
+    #  format.xml { render :xml => @playlists }
+    #end
   end
 
   def new
