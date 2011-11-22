@@ -7,8 +7,16 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
+  <div id="left">
+    <ul>
+      <li><%= link_to 'Immagini', :images %></li>
+      <li><%= link_to 'Playlists', :playlists %></li>
+    </ul>
+  </div>
 
-<%= yield %>
+  <div id="content">
+    <%= yield %>
+  </div>
 
 </body>
 </html>

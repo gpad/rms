@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @playlist.name %>
+</p>
+
+<% @playlist.images.each do |image| %>
+  <div>
+    <%= image.name %>
+    <%= image_tag image.name %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Edit', edit_playlist_path(@playlist) %> |
+<%= link_to 'Back', playlists_path %>
