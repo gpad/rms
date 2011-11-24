@@ -1,4 +1,4 @@
-Rmms::Application.routes.draw do
+Rms::Application.routes.draw do
   resources :images
 
   # The priority is based upon order of creation:
