@@ -70,7 +70,11 @@ class ImagesController < ApplicationController
   # DELETE /images/1.xml
   def destroy
     @image = Image.find(params[:id])
-    File.delete(Rails.root.join('public', 'images', @image.name))
+    begin
+      File.delete(Rails.root.join('public', 'images', @image.name))
+    rescue
+      logger.warning "Unable to delete file @{image.name}"
+    end
     @image.destroy
 
     respond_to do |format|
