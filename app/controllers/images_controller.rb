@@ -32,12 +32,17 @@ class ImagesController < ApplicationController
   def create
     @image = Image.new(params[:image])
 
+
+    logger.debug "imagine.name = '#{@image.name}'"
+    logger.debug "params = #{params}"
+
     respond_to do |format|
       if @image.save
         save_picture @image.name, @image.picture
         format.html { redirect_to(@image, :notice => 'Image was successfully created.') }
         format.xml  { render :xml => @image, :status => :created, :location => @image }
       else
+        logger.debug "save fails #{@image.errors}"
         format.html { render :action => "new" }
         format.xml  { render :xml => @image.errors, :status => :unprocessable_entity }
       end

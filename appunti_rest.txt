@@ -1,0 +1,26 @@
+Upload dei file va fatto con i dati del seguente tipo:
+
+image[name] = nome
+image[picture] = upload del file ...
+
+
+Per l'add occorre come content-type text/xml
+
+  <playlist>
+    <id>1</id>
+    <name>metallo</name>
+  </playlist>
+
+
+  <playlist>
+
+    <name>metallo</name>
+
+    <images>
+      <id>4</id>
+    </images>
+
+
+  </playlist>
+
+  Pare essere un xml buone ma occorre vedere come gestire le ose innsestate, pare che ci siamo abbastanza vicini domani ci lavoriamo ancora!!!
