@@ -39,3 +39,5 @@ Per l'add occorre come content-type text/xml
 		      </playlist>
 
 		      significa aggiornare il contenuto della playlist 7
+
+		      Si può usare o no il type="array"

@@ -37,6 +37,9 @@ class PlaylistsController < ApplicationController
   end
 
   def create_images par_images
+    if !par_images.is_a? Array
+      par_images = par_images['image']
+    end
     logger.debug par_images.class
     return par_images.collect do |par_img| 
       img = Image.find(par_img['id'])
