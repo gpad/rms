@@ -24,3 +24,18 @@ Per l'add occorre come content-type text/xml
   </playlist>
 
   Pare essere un xml buone ma occorre vedere come gestire le ose innsestate, pare che ci siamo abbastanza vicini domani ci lavoriamo ancora!!!
+
+
+  Se faccio una PUT su http://0.0.0.0:3000/playlists/7.xml con questo XML
+
+  <playlist>
+    <id>7</id>
+      <name>sette</name>
+        <images type="array">
+	    <image><id>3</id></image>
+	        <image><id>2</id></image>
+		    <image><id>1</id></image>
+		      </images>
+		      </playlist>
+
+		      significa aggiornare il contenuto della playlist 7
