@@ -36,9 +36,14 @@ class PlaylistsController < ApplicationController
     @playlist = Playlist.find(params[:id])
   end
 
-  def create_images par_images, def_imgs
+  def create_images def_imgs
+    if ! params[:playlist].key? :images
+      return def_images
+    end
+
+    par_images = params[:playlist][:images]
     if (par_images.nil?)
-      return def_imgs
+      return []
     end
 
     if !par_images.is_a? Array
@@ -56,7 +61,7 @@ class PlaylistsController < ApplicationController
     @playlist = Playlist.find(params[:id])
     respond_to do |format|
       @playlist.name = params[:playlist][:name]
-      @playlist.images = create_images(params[:playlist][:images], @playlist.images)
+      @playlist.images = create_images(@playlist.images)
       if @playlist.save 
       #if @playlist.update_attributes(params[:playlist])
         format.html { redirect_to(@playlist, :notice => 'Playlist was successfully updated.') }
