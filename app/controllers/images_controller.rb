@@ -33,8 +33,8 @@ class ImagesController < ApplicationController
     @image = Image.new(params[:image])
 
 
-    logger.debug "imagine.name = '#{@image.name}'"
-    logger.debug "params = #{params}"
+    # logger.debug "imagine.name = '#{@image.name}'"
+    # logger.debug "params = #{params}"
 
     respond_to do |format|
       if @image.save

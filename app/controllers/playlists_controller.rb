@@ -36,11 +36,17 @@ class PlaylistsController < ApplicationController
     @playlist = Playlist.find(params[:id])
   end
 
-  def create_images par_images
+  def create_images par_images, def_imgs
+    if (par_images.nil?)
+      return def_imgs
+    end
+
     if !par_images.is_a? Array
       par_images = par_images['image']
     end
-    logger.debug par_images.class
+    if (par_images.nil?)
+      return []
+    end
     return par_images.collect do |par_img| 
       img = Image.find(par_img['id'])
     end
@@ -50,7 +56,7 @@ class PlaylistsController < ApplicationController
     @playlist = Playlist.find(params[:id])
     respond_to do |format|
       @playlist.name = params[:playlist][:name]
-      @playlist.images = create_images(params[:playlist][:images])
+      @playlist.images = create_images(params[:playlist][:images], @playlist.images)
       if @playlist.save 
       #if @playlist.update_attributes(params[:playlist])
         format.html { redirect_to(@playlist, :notice => 'Playlist was successfully updated.') }
