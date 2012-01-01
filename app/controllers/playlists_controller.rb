@@ -20,9 +20,13 @@ class PlaylistsController < ApplicationController
   end
 
   def create
-    @playlist = Playlist.new(params[:playlist])
+    #@playlist = Playlist.new(params[:playlist])
+    @playlist = Playlist.new()
+    @playlist.name = params[:playlist][:name]
+    @playlist.playlist_items << create_images([]).collect{|i| PlaylistItem.new({:image_id => i.id})}
     respond_to do |format|
       if @playlist.save
+
         format.html { redirect_to(@playlist, :notice => 'Playlist was successfully created.') }
         format.xml  { render :xml => @playlist, :status => :created, :location => @playlist}
       else
@@ -36,8 +40,8 @@ class PlaylistsController < ApplicationController
     @playlist = Playlist.find(params[:id])
   end
 
-  def create_images def_imgs
-    if ! params[:playlist].key? :images
+  def create_images def_images
+    if !params[:playlist].key? :images
       return def_images
     end
 
@@ -52,8 +56,14 @@ class PlaylistsController < ApplicationController
     if (par_images.nil?)
       return []
     end
-    return par_images.collect do |par_img| 
-      img = Image.find(par_img['id'])
+    if par_images.is_a? Array
+      return par_images.collect do |par_img|
+        my_id = par_img['id']
+        img = Image.find(my_id)
+      end
+    elsif
+      img = Image.find(par_images['id'])
+      return [img]
     end
   end
 
