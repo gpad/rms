@@ -26,9 +26,10 @@ class PlaylistsController < ApplicationController
     @playlist.playlist_items << create_images([]).collect{|i| PlaylistItem.new({:image_id => i.id})}
     respond_to do |format|
       if @playlist.save
-
+        @playlist = @playlist.reload
+        logger.debug "playlist --> @playlist"
         format.html { redirect_to(@playlist, :notice => 'Playlist was successfully created.') }
-        format.xml  { render :xml => @playlist, :status => :created, :location => @playlist}
+        format.xml  { render :template => 'playlists/show', :status => :created, :location => @playlist}
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @playlist.errors, :status => :unprocessable_entity }
