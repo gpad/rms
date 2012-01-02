@@ -84,6 +84,14 @@ class PlaylistsController < ApplicationController
     end
   end
 
+  def reset
+    Playlist.all.each {|pl| pl.destroy }
+    respond_to do |format|
+      format.html { redirect_to(playlists_url) }
+      format.xml  { head :ok }
+    end
+  end
+
   def destroy
     @playlist = Playlist.find(params[:id])
     @playlist.destroy

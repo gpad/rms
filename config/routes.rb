@@ -18,6 +18,7 @@ Rms::Application.routes.draw do
     put 'upload', :on => :collection
   end
   resources :playlists
+  post 'reset' => 'playlists#reset'
 
   # Sample resource route with options:
   #   resources :products do
