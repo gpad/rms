@@ -2,5 +2,5 @@
 
 ## Purpose
 
-Example client projects for manage playlist on REST Server (see rms)
+Example server projects for manage playlist (see PlayListManager for client)
 
